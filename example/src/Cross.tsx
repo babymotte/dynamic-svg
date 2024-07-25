@@ -2,7 +2,7 @@ import { SvgComponentProps, DynamicSvg } from "../../dist";
 
 export default function Cross() {
   return (
-    <DynamicSvg style={{ border: "1em solid red", flexGrow: 1 }}>
+    <DynamicSvg style={{ width: "100%", height: "100%" }}>
       <CrossGraphic color="blue" />
     </DynamicSvg>
   );

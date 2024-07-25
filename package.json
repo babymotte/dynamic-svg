@@ -1,6 +1,6 @@
 {
   "name": "@babymotte/dynamic-svg",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A dynamically resizing svg component for React",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

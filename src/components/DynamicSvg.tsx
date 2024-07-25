@@ -19,16 +19,16 @@ import { SvgComponentProps } from "..";
 
 export function DynamicSvg({
   children,
-  ref,
-  style,
+  svgRef: ref,
+  ...props
 }: {
   children?:
     | React.ReactElement<SvgComponentProps>
     | React.ReactElement<SvgComponentProps>[];
-  ref?: React.MutableRefObject<SVGSVGElement | null>;
+  svgRef?: React.MutableRefObject<SVGSVGElement | null>;
   style?: React.CSSProperties;
+  props?: object;
 }) {
-  const divRef = React.useRef<HTMLDivElement | null>(null);
   const internalSvgRef = React.useRef<SVGSVGElement | null>(null);
   const [width, setWidth] = React.useState(0);
   const [height, setHeight] = React.useState(0);
@@ -46,8 +46,9 @@ export function DynamicSvg({
   });
 
   React.useLayoutEffect(() => {
-    const elem = divRef.current;
-    if (elem != null) {
+    const svg = svgRef.current;
+    const parent = svg?.parentElement;
+    if (parent != null) {
       const listener = new ResizeObserver((entries) => {
         setWidth(entries[0].contentRect.width);
         setHeight(entries[0].contentRect.height);
@@ -64,24 +65,17 @@ export function DynamicSvg({
           });
         });
       });
-      listener.observe(elem);
+      listener.observe(parent);
       return () => {
-        listener.unobserve(elem);
+        listener.unobserve(parent);
         listener.disconnect();
       };
     }
-  }, []);
+  }, [svgRef]);
 
   return (
-    <div ref={divRef} style={{ ...style }}>
-      <svg
-        width={width}
-        height={height}
-        style={{ width: "100%", height: "100%" }}
-        ref={svgRef}
-      >
-        {childrenWithProps}
-      </svg>
-    </div>
+    <svg {...props} width={width} height={height} ref={svgRef}>
+      {childrenWithProps}
+    </svg>
   );
 }
