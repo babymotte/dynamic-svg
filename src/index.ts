@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { DynamicSvg } from "./components/DynamicSvg";
-import { SvgComponentProps } from "./hooks/dynamicSvg";
+export { DynamicSvg } from "./components/DynamicSvg";
 
-export { DynamicSvg, SvgComponentProps };
+export type SvgComponentProps = {
+  viewBox?: [number, number, number, number];
+};

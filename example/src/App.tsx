@@ -1,51 +1,111 @@
-import { SvgComponentProps, DynamicSvg } from "dynamic-svg";
 import React from "react";
 import "./App.css";
+import ButtonContainer from "./ButtonContainer";
 
 export default function App() {
-  const ref = React.useRef(null);
-  const svgRef = React.useRef(null);
-
-  React.useLayoutEffect(() => {
-    console.log(svgRef.current);
-  }, []);
-
+  const [count, setCount] = React.useState(5);
   return (
-    <div style={{ width: "100%", height: "100vh" }} ref={ref}>
-      <DynamicSvg parentRef={ref} svgRef={svgRef} style={{ opacity: 0.1 }}>
-        <Cross color="blue" />
-      </DynamicSvg>
-    </div>
-  );
-}
-
-type CrossProps = SvgComponentProps & { color: string };
-
-function Cross({ viewBox, color }: CrossProps) {
-  console.log("rendering");
-
-  return viewBox ? (
     <>
-      <line
-        x1={viewBox[0]}
-        y1={viewBox[1]}
-        x2={viewBox[2]}
-        y2={viewBox[3]}
-        style={{
-          stroke: color,
-          strokeWidth: 1,
-        }}
-      />
-      <line
-        x1={viewBox[0]}
-        y1={viewBox[3]}
-        x2={viewBox[2]}
-        y2={viewBox[1]}
-        style={{
-          stroke: color,
-          strokeWidth: 1,
-        }}
-      />
+      <div>
+        <button onClick={() => setCount(Math.min(10, count + 1))}>+</button>
+        <button onClick={() => setCount(Math.max(count - 1, 1))}>-</button>
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
+      <div style={{ width: "50%", height: 64, overflow: "hidden" }}>
+        <ButtonContainer count={count} />
+      </div>
     </>
-  ) : null;
+  );
 }

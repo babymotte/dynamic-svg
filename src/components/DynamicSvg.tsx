@@ -15,27 +15,27 @@
  */
 
 import React from "react";
-import { SvgComponentProps, useDynamicSvgProps } from "../hooks/dynamicSvg";
+import { SvgComponentProps } from "..";
 
-export function DynamicSvg<T extends Element>({
+export function DynamicSvg({
   children,
-  parentRef,
-  svgRef: cr,
+  ref,
   style,
 }: {
   children?:
     | React.ReactElement<SvgComponentProps>
     | React.ReactElement<SvgComponentProps>[];
-  parentRef: React.RefObject<T | null | undefined>;
-  svgRef?: React.MutableRefObject<SVGSVGElement | null>;
+  ref?: React.MutableRefObject<SVGSVGElement | null>;
   style?: React.CSSProperties;
 }) {
-  const props = useDynamicSvgProps<T>(parentRef, style);
+  const divRef = React.useRef<HTMLDivElement | null>(null);
   const internalSvgRef = React.useRef<SVGSVGElement | null>(null);
-  const svgRef = cr || internalSvgRef;
+  const [width, setWidth] = React.useState(0);
+  const [height, setHeight] = React.useState(0);
+  const svgRef = ref || internalSvgRef;
 
   const childProps: SvgComponentProps = {
-    viewBox: [0, 0, props.width, props.height],
+    viewBox: [0, 0, width, height],
   };
 
   const childrenWithProps = React.Children.map(children, (child) => {
@@ -45,9 +45,43 @@ export function DynamicSvg<T extends Element>({
     return child;
   });
 
+  React.useLayoutEffect(() => {
+    const elem = divRef.current;
+    if (elem != null) {
+      const listener = new ResizeObserver((entries) => {
+        setWidth(entries[0].contentRect.width);
+        setHeight(entries[0].contentRect.height);
+        requestAnimationFrame(() => {
+          setWidth(entries[0].contentRect.width);
+          setHeight(entries[0].contentRect.height);
+          requestAnimationFrame(() => {
+            setWidth(0);
+            setHeight(0);
+            requestAnimationFrame(() => {
+              setWidth(entries[0].contentRect.width);
+              setHeight(entries[0].contentRect.height);
+            });
+          });
+        });
+      });
+      listener.observe(elem);
+      return () => {
+        listener.unobserve(elem);
+        listener.disconnect();
+      };
+    }
+  }, []);
+
   return (
-    <svg {...props} ref={svgRef}>
-      {childrenWithProps}
-    </svg>
+    <div ref={divRef} style={{ ...style }}>
+      <svg
+        width={width}
+        height={height}
+        style={{ width: "100%", height: "100%" }}
+        ref={svgRef}
+      >
+        {childrenWithProps}
+      </svg>
+    </div>
   );
 }
